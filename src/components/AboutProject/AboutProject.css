@@ -1,5 +1,5 @@
 .aboutProject {
-  padding: 70px 4px;
+  padding: 70px 18px;
   box-sizing: border-box;
   min-height: 641px;
   display: flex;
@@ -81,7 +81,7 @@
 
 @media screen and (min-width: 768px) {
   .aboutProject {
-    padding: 90px 36px;
+    padding: 90px 50px;
     min-height: 585px;
   }
 
@@ -128,7 +128,7 @@
 
 @media screen and (min-width: 1280px) {
   .aboutProject {
-    padding: 110px 56px;
+    padding: 110px 70px;
     min-height: 608px;
   }
 
