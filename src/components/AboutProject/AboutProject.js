@@ -2,7 +2,7 @@ import React from 'react';
 
 function AboutProject() {
   return (
-    <div className='aboutProject'>
+    <div className='aboutProject' id='aboutProject'>
       <h2 className='aboutProject__title'>О проекте</h2>
       <div className='aboutProject__articles'>
       <article className='aboutProject__article'>
@@ -21,10 +21,10 @@ function AboutProject() {
       </article>
       </div>
       <div className='aboutProject__info-block'>
-        <text className='aboutProject__info-head aboutProject__info-head_theme_dark'>1 неделя</text>
-        <text className='aboutProject__info-head'>4 недели</text>
-        <text className='aboutProject__info-text'>Back-end</text>
-        <text className='aboutProject__info-text'>Front-end</text>
+        <p className='aboutProject__info-head aboutProject__info-head_theme_dark'>1 неделя</p>
+        <p className='aboutProject__info-head'>4 недели</p>
+        <p className='aboutProject__info-text'>Back-end</p>
+        <p className='aboutProject__info-text'>Front-end</p>
       </div>
     </div>
   );

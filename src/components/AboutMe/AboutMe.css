@@ -1,0 +1,137 @@
+.aboutMe {
+  padding: 70px 14px;
+  box-sizing: border-box;
+  min-height: 641px;
+  display: flex;
+  flex-direction: column;
+}
+
+.aboutMe__title {
+  margin: 0 0 60px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  border-bottom: solid 1px #000000;
+  min-height: 50px;
+}
+
+.aboutMe__photo {
+  width: 292px;
+  height: 352px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.aboutMe__article-title {
+  margin: 40px 0 20px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.04em;
+}
+
+.aboutMe__article-status {
+  margin: 0 0 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.aboutMe__article-text {
+  margin: 0 0 40px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.aboutMe__link {
+  margin: 0 26px 0 0;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+@media screen and (min-width: 768px) {
+  .aboutMe {
+    padding: 90px 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      'a a a'
+      'b b c';
+  }
+
+  .aboutMe__title {
+    grid-area: a;
+    font-size: 22px;
+    line-height: 27px;
+    max-height: 45px;
+  }
+
+  .aboutMe__photo {
+    grid-area: c;
+    width: 255px;
+    height: 307px;
+    justify-self: end;
+  }
+
+  .aboutMe__article {
+    grid-area: b;
+    margin-right: 50px;
+  }
+
+  .aboutMe__article-title {
+    margin-bottom: 16px;
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .aboutMe__article-status {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .aboutMe__article-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    .aboutMe {
+      padding: 110px 70px 100px;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-areas:
+        'a a a a'
+        'b b b c';
+    }
+
+    .aboutMe__photo {
+      width: 270px;
+      height: 327px;
+    }
+
+    .aboutMe__article-title {
+      font-size: 50px;
+      line-height: 58px;
+    }
+
+    .aboutMe__article-status {
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    .aboutMe__article-text {
+      font-size: 14px;
+      line-height: 22px;
+    }
+  }
+}
