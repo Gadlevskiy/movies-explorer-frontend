@@ -1,14 +1,18 @@
 import './App.css';
-import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
-import Main from '../Main/Main';
-// import Header from '../Header';
+import { Route, Switch } from 'react-router-dom';
+// import Main from '../Main/Main';
+// import Header from '../Header/Header';
+import Movies from '../Movies/Movies'
 
 function App() {
   return (
     <div className='page'>
       {/* <Header></Header> */}
       <Switch>
-        <Main></Main>
+        <Route exact path='/'>
+          {/* <Main></Main> */}
+          <Movies></Movies>
+        </Route>
       </Switch>
     </div>
   );
