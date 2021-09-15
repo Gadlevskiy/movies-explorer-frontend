@@ -1,5 +1,6 @@
 import React from 'react';
-import logo from '../../images/header-logo.svg'
+import logo from '../../images/header-logo.svg';
+import { Link } from 'react-router-dom';
 
 function Register() {
   return (
@@ -18,7 +19,9 @@ function Register() {
       </form>
       <div className='register__login-box'>
         <p className='register__login-question'>Уже зарегистрированы?</p>
-        <p className='register__login'>Войти</p>
+        <Link to='/signin' className='register__login'>
+          Войти
+        </Link>
       </div>
     </section>
   );

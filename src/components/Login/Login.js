@@ -1,5 +1,7 @@
 import React from 'react';
 import logo from '../../images/header-logo.svg';
+import { Link } from 'react-router-dom';
+
 
 function Login() {
   return (
@@ -15,7 +17,7 @@ function Login() {
       </form>
       <div className='login__register-box'>
         <p className='login__register-question'>Ещё не зарегистрированы?</p>
-        <p className='login__register'>Регистрация</p>
+        <Link to='/signup' className='login__register'>Регистрация</Link>
       </div>
     </section>
   );

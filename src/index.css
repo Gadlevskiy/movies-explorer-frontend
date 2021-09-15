@@ -23,5 +23,7 @@
 @import url(./components/Login/Login.css);
 /* 404 */
 @import url(./components/LostPage/LostPage.css);
+/* NAVIGATION */
+@import url(./components/Navigation/Navigation.css);
 /* FOOTER */
 @import url(./components/Footer/Footer.css);

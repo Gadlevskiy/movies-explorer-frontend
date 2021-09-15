@@ -7,6 +7,7 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import LostPage from '../LostPage/LostPage';
+import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 
 function App() {
@@ -39,6 +40,8 @@ function App() {
         </Route>
       </Switch>
       <Footer></Footer>
+      {/* Функционал выплывающего попапа будет добавлен на этапе функциональность */}
+      <Navigation></Navigation>
     </div>
   );
 }
