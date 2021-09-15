@@ -21,3 +21,7 @@
 @import url(./components/Profile/Profile.css);
 @import url(./components/Register/Register.css);
 @import url(./components/Login/Login.css);
+/* 404 */
+@import url(./components/LostPage/LostPage.css);
+/* FOOTER */
+@import url(./components/Footer/Footer.css);
