@@ -4,7 +4,10 @@ import Card from '../MoviesCard/MoviesCard';
 function MoviesCardList() {
   return (
     <section className='movies-card-list'>
-      <Card></Card>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
     </section>
   );
 }

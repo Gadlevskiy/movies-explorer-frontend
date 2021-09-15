@@ -1,8 +1,11 @@
-import './App.css';
 import { Route, Switch } from 'react-router-dom';
 // import Main from '../Main/Main';
 // import Header from '../Header/Header';
-import Movies from '../Movies/Movies'
+// import Movies from '../Movies/Movies'
+// import SavedMovies from '../SavedMovies/SavedMovies'
+// import Profile from '../Profile/Profile';
+// import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 function App() {
   return (
@@ -11,7 +14,11 @@ function App() {
       <Switch>
         <Route exact path='/'>
           {/* <Main></Main> */}
-          <Movies></Movies>
+          {/* <Movies></Movies>
+          <SavedMovies></SavedMovies> */}
+          {/* <Profile></Profile> */}
+          {/* <Register></Register> */}
+          <Login></Login>
         </Route>
       </Switch>
     </div>

@@ -1,0 +1,138 @@
+.login {
+  padding: 55px 0 30px;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  max-width: 260px;
+}
+
+.login__logo {
+  width: 38px;
+  margin-bottom: 50px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.login__greetings {
+  margin: 0 0 80px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+}
+
+.login__field-name {
+  margin-bottom: 10px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #a0a0a0;
+}
+
+.login__field {
+  box-sizing: border-box;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: none;
+  background: #f9f9f9;
+  border-radius: 8px;
+  height: 46px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+}
+
+.login__field:last-of-type {
+  margin-bottom: 267px;
+}
+
+.login__form-submit {
+  margin-bottom: 15px;
+  background: #000000;
+  border-radius: 3px;
+  height: 45px;
+  width: 100%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.login__register-box {
+  display: flex;
+}
+
+.login__register-question {
+  margin: 0 7px 0 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #a0a0a0;
+}
+
+.login__register {
+  margin: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  color: #000000;
+}
+
+@media screen and (min-width: 768px) {
+  .login {
+    padding-top: 232px;
+    max-width: 396px;
+  }
+
+  .login__logo {
+    align-self: flex-start;
+    margin-bottom: 40px;
+  }
+
+  .login__greetings {
+    align-self: flex-start;
+    margin-bottom: 40px;
+  }
+
+  .login__form-submit {
+    margin-bottom: 17px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .login__field:last-of-type {
+    margin-bottom: 180px;
+  }
+
+  .login__register-question {
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  .login__register {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .login {
+    padding-top: 70px;
+  }
+}

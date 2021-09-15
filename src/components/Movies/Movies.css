@@ -1,4 +1,40 @@
 .movies {
   font-family: 'Inter', 'Arial', sans-serif;
   -webkit-font-smoothing: antialiased;
+  padding: 40px 10px 80px;
+}
+
+.movies__show-btn {
+  padding: 0;
+  margin: 50px auto 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  border: none;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  width: 240px;
+  height: 36px;
+}
+
+@media screen and (min-width: 768px) {
+  .movies {
+    padding: 70px 30px 80px;
+  }
+
+  .movies__show-btn {
+    width: 320px;
+    height: 36px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .movies {
+    padding: 70px 70px 80px;
+  }
 }

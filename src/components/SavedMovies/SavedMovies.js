@@ -2,14 +2,13 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies() {
+function SavedMovies() {
   return (
-    <section className='movies'>
+    <section className='saved-movies'>
       <SearchForm></SearchForm>
       <MoviesCardList></MoviesCardList>
-      <button className='movies__show-btn'>Ещё</button>
     </section>
   );
 }
 
-export default Movies;
+export default SavedMovies;
