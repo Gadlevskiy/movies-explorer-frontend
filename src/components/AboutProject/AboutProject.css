@@ -97,6 +97,11 @@
 
   .aboutProject__article {
     min-height: 200px;
+    margin-right: 30px;
+  }
+
+  .aboutProject__article:last-of-type {
+    margin-right: 0;
   }
 
   .aboutProject__article-title {
