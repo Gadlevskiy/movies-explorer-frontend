@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
@@ -12,10 +13,19 @@ import Footer from '../Footer/Footer';
 
 function App() {
   const location = useLocation();
+  const [isNavigationMenuOpen, setNavigationMenuOpen] = React.useState(false);
+
+  function handleNavigationMenuClick() {
+    setNavigationMenuOpen(true);
+  }
+
+  function closeNavigationMenu() {
+    setNavigationMenuOpen(false);
+  }
 
   return (
     <div className='page'>
-      <Header location={location.pathname} />
+      <Header location={location.pathname} onMenuClick={handleNavigationMenuClick} />
       <Switch>
         <Route path='/' exact>
           <Main></Main>
@@ -41,7 +51,7 @@ function App() {
       </Switch>
       <Footer></Footer>
       {/* Функционал выплывающего попапа будет добавлен на этапе функциональность */}
-      <Navigation></Navigation>
+      <Navigation isOpen={isNavigationMenuOpen} onClose={closeNavigationMenu}></Navigation>
     </div>
   );
 }

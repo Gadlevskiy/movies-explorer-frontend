@@ -3,7 +3,7 @@ import logo from '../../images/header-logo.svg';
 import accLogo from '../../images/account-icon.svg';
 import { Link } from 'react-router-dom';
 
-function Header({ location }) {
+function Header({ location, onMenuClick }) {
   function renderHeader() {
     if (location === '/')
       return (
@@ -15,7 +15,7 @@ function Header({ location }) {
     else if (location === '/movies' || '/saved-movies' || '/profile')
       return (
         <>
-          <button className='header__menu-btn'></button>
+          <button className='header__menu-btn' onClick={onMenuClick}></button>
           <div className='header__menu'>
             <Link to='/movies' className='header__movies-link'>
               Фильмы

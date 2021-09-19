@@ -1,10 +1,34 @@
 .navigation {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  transition: all 0.4s ease-out;
+  opacity: 0;
+}
+
+.navigation_active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.navigation__menu {
+  background-color: #ffffff;
   padding: 144px 10px 46px;
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 
 .navigation__btn-exit {
@@ -56,7 +80,8 @@
 }
 
 @media screen and (min-width: 768px) {
-  .navigation {
+  .navigation__menu {
+    max-width: 520px;
     padding-top: 160px;
     padding-bottom: 90px;
   }
@@ -67,5 +92,11 @@
 
   .navigation__link-block {
     margin-bottom: 600px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .navigation {
+    display: none;
   }
 }
