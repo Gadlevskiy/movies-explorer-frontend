@@ -1,0 +1,123 @@
+.profile {
+  padding: 70px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.profile__greetings {
+  margin: 0 0 80px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+}
+
+.profile__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 46px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.profile__field:last-of-type {
+  border: none;
+  margin-bottom: 380px;
+}
+
+.profile__field-name {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #000000;
+}
+
+.profile__field-value {
+  border: none;
+  text-align: end;
+  outline: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 11px;
+  line-height: 13px;
+  color: #000000;
+}
+
+.profile__form-submit {
+  background: none;
+  border: none;
+  padding: 0;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+}
+
+.profile__button-exit {
+  background: none;
+  border: none;
+  padding: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff4062;
+}
+
+@media screen and (min-width: 768px) {
+  .profile {
+    margin: auto;
+    padding-top: 235px;
+    max-width: 410px;
+  }
+
+  .profile__greetings {
+    margin-bottom: 95px;
+  }
+
+  .profile__field:last-of-type {
+    margin-bottom: 210px;
+  }
+
+  .profile__form-submit {
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .profile__button-exit {
+    font-size: 13px;
+    line-height: 16px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .profile {
+    padding-top: 74px;
+  }
+
+  .profile__greetings {
+    margin-bottom: 122px;
+  }
+
+  .profile__field:last-of-type {
+    margin-bottom: 220px;
+  }
+}
