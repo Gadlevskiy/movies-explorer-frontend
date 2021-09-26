@@ -6,10 +6,33 @@
   row-gap: 20px;
 }
 
+.movies-card-list__show-btn {
+  padding: 0;
+  margin: 50px auto 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  border: none;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  width: 240px;
+  height: 36px;
+}
+
 @media screen and (min-width: 768px) {
   .movies-card-list {
     grid-template-columns: repeat(2, 339px);
     gap: 20px 30px;
+  }
+
+  .movies__show-btn {
+    width: 320px;
+    height: 36px;
   }
 }
 

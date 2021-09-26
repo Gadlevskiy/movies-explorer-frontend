@@ -2,12 +2,14 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({movies, onClick}) {
+function Movies({isNeedBtnMore, movies, onClick, onRenderClick, onBtnSave}) {
   return (
     <section className='movies'>
       <SearchForm onSearch={onClick} />
-      <MoviesCardList movies={movies} />
-      <button className='movies__show-btn'>Ещё</button>
+      <MoviesCardList stateBtnSave={true} movies={movies} onBtnSave={onBtnSave}/>
+      {isNeedBtnMore && (<button className='movies-card-list__show-btn' onClick={onRenderClick}>
+        Ещё
+      </button>)}
     </section>
   );
 }

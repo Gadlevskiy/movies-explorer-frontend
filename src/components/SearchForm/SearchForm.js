@@ -10,7 +10,7 @@ function SearchForm({ onSearch }) {
   }
 
   function handleChangeShortValue(e) {
-    setIsShort(e.target.value);
+    setIsShort(e.target.checked);
   }
 
   function handleButtonSearch(e) {
@@ -36,7 +36,7 @@ function SearchForm({ onSearch }) {
           <label className='search-form__checkbox-area'>
             <input
               className='search-form__checkbox'
-              value={isShort}
+              checked={isShort}
               onChange={handleChangeShortValue}
               type='checkbox'
             />

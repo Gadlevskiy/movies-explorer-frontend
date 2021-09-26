@@ -1,23 +1,18 @@
 import React from 'react';
 
-function MoviesCard({ movie }) {
-  // Переменная в состоянии true показывает кнопку сохранить,
-  // а в состоянии false показывает кнопку добавить
+function MoviesCard({ stateBtnSave, movie, onBtnSave }) {
+  function handleDeleteClick() {
+    onBtnSave(movie.movieId);
+  }
+
   const notAdded = true;
-  // Переменная location в состоянии true дает в выборку кнопки добавить и сохранить,
-  // а в состоянии false кнопку удаления
-  const location = false;
   return (
     <div className='card'>
       <div className='card__cover'>
-        <img
-          className='card__cover-image'
-          src={movie.image}
-          alt={movie.nameRU}
-        />
-        {location ? (
+        <img className='card__cover-image' src={movie.image} alt={movie.nameRU} />
+        {stateBtnSave ? (
           notAdded ? (
-            <button className='card__button-add'>Сохранить</button>
+            <button className='card__button-add' onClick={handleDeleteClick}>Сохранить</button>
           ) : (
             <button className='card__button-added'></button>
           )

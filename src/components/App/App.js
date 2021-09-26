@@ -13,6 +13,7 @@ import Navigation from '../Navigation/Navigation';
 import Footer from '../Footer/Footer';
 import mainApi from '../../utils/MainApi';
 import * as moviesApi from '../../utils/MoviesApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const location = useLocation();
@@ -22,6 +23,9 @@ function App() {
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [searchedMovies, setSearchedMovies] = React.useState([]);
+  const [currentSize, setCurrentSize] = React.useState(7);
+  const [numberOfAdd, setNumberOfAdd] = React.useState(2);
+  const [shownMovies, setShownMovies] = React.useState([]);
 
   React.useEffect(() => {
     mainApi
@@ -36,18 +40,53 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    const localMovies = JSON.parse(localStorage.getItem('movies'));
-    if (localMovies) {
-      setMovies(localMovies);
-      const localSearcResult = JSON.parse(localStorage.getItem('moviesSearchResult'));
-      if (localSearcResult) {
-        setSearchedMovies(localSearcResult);
-      }
-    } else {
-      getMoviesFromBeat();
+    getMoviesFromBeat();
+    const localSearcResult = JSON.parse(localStorage.getItem('moviesSearchResult'));
+    if (localSearcResult) {
+      setSearchedMovies(localSearcResult);
     }
   }, []);
+  // Блок логики вывода начальных карточек и подгрузки новых через кнопку "Ещё"
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResizeWindow);
 
+    return () => {
+      window.removeEventListener('resize', handleResizeWindow);
+    };
+  });
+
+  React.useEffect(() => {
+    const windowRes = window.innerWidth;
+    const list = countCurrenSize(windowRes);
+    const countMovies = Math.min(searchedMovies.length, list.start);
+    setShownMovies(searchedMovies.slice(0, countMovies));
+    setCurrentSize(countMovies);
+    setNumberOfAdd(list.add);
+  }, [searchedMovies]);
+
+  function countCurrenSize(windowRes) {
+    if (windowRes >= 1280) {
+      return { start: 12, add: 3 };
+    } else if (1280 > windowRes && windowRes > 768) {
+      return { start: 8, add: 2 };
+    } else {
+      return { start: 7, add: 2 };
+    }
+  }
+
+  function handleResizeWindow() {
+    const windowRes = window.innerWidth;
+    const list = countCurrenSize(windowRes);
+    setNumberOfAdd(list.add);
+  }
+
+  function renderCrads() {
+    const countMovies = Math.min(searchedMovies.length, currentSize + numberOfAdd);
+    setShownMovies([...shownMovies, ...searchedMovies.slice(currentSize, countMovies)]);
+    setCurrentSize(countMovies);
+  }
+
+  // Блок отвечает за логику открытия "бургер" меню
   function handleNavigationMenuClick() {
     setNavigationMenuOpen(true);
   }
@@ -55,7 +94,7 @@ function App() {
   function closeNavigationMenu() {
     setNavigationMenuOpen(false);
   }
-
+  // Блок логики запроса фильмов с сервера и их форматирование
   function getMoviesFromBeat() {
     moviesApi
       .movies()
@@ -75,7 +114,7 @@ function App() {
             nameEN: item.nameEN ? item.nameEN : item.nameRU,
           };
         });
-        localStorage.setItem('movies', JSON.stringify(formatedData));
+        setMovies(formatedData);
       })
       .catch((err) => {
         console.log(err);
@@ -92,30 +131,52 @@ function App() {
         console.log(err);
       });
   }
-
-  function search(data, searchValue) {
+  // Блок логики фильтрации массива с фильмами по запросу
+  function search(data, searchValue, isShort) {
     const result = data.filter((movie) => {
-      return (
-        movie.nameRU.toLowerCase().includes(searchValue.toLowerCase()) ||
-        movie.nameEN.toLowerCase().includes(searchValue.toLowerCase()) ||
-        movie.description.toLowerCase().includes(searchValue.toLowerCase())
-      );
+      if (isShort) {
+        return (
+          (movie.nameRU.toLowerCase().includes(searchValue.toLowerCase()) ||
+            movie.nameEN.toLowerCase().includes(searchValue.toLowerCase()) ||
+            movie.description.toLowerCase().includes(searchValue.toLowerCase())) &&
+          movie.duration < 40
+        );
+      } else {
+        return (
+          movie.nameRU.toLowerCase().includes(searchValue.toLowerCase()) ||
+          movie.nameEN.toLowerCase().includes(searchValue.toLowerCase()) ||
+          movie.description.toLowerCase().includes(searchValue.toLowerCase())
+        );
+      }
     });
     return result;
   }
 
   function handleMoviesButtonSearch(searchValue, isShort) {
-    getMoviesFromBeat();
-    localStorage.removeItem('movies')
-    setSearchedMovies(
-      search(movies, searchValue).filter((item) => {
-        return isShort ? item.duration > 80 : true;
-      })
-    );
+    const searcResult = search(movies, searchValue, isShort);
+    setSearchedMovies(searcResult);
+    localStorage.setItem('moviesSearchResult', JSON.stringify(searcResult));
   }
 
   function handleSavedMoviesButtonSearch(searchValue, isShort) {
-    search(savedMovies, searchValue, isShort);
+    setSearchedMovies(search(savedMovies, searchValue, isShort));
+  }
+
+  function handleAddMovie(data) {
+    mainApi.saveCard(data).catch((err) => {
+      console.log(err);
+    });
+  }
+
+  function handleRemoveMovie(id) {
+    mainApi
+      .deleteCard(id)
+      .then(() => {
+        setSavedMovies(savedMovies.filter((el) => el.movieId !== id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -124,17 +185,26 @@ function App() {
         <Header location={location.pathname} onMenuClick={handleNavigationMenuClick} />
         <Switch>
           <Route path='/' exact>
-            <Main></Main>
+            <Main />
           </Route>
-          <Route path='/movies'>
-            <Movies movies={searchedMovies} onClick={handleMoviesButtonSearch}></Movies>
-          </Route>
-          <Route path='/saved-movies'>
-            <SavedMovies movies={savedMovies} onClick={handleSavedMoviesButtonSearch}></SavedMovies>
-          </Route>
-          <Route path='/profile'>
-            <Profile></Profile>
-          </Route>
+          <ProtectedRoute
+            path='/movies'
+            loggedIn={loggedIn}
+            component={Movies}
+            isNeedBtnMore={searchedMovies.length > shownMovies.length}
+            movies={shownMovies}
+            onClick={handleMoviesButtonSearch}
+            onRenderClick={renderCrads}
+            onBtnSave={handleAddMovie}
+          />
+          <ProtectedRoute
+            path='/saved-movies'
+            loggedIn={loggedIn}
+            component={SavedMovies}
+            movies={savedMovies}
+            onClick={handleSavedMoviesButtonSearch}
+          />
+          <ProtectedRoute path='/profile' loggedIn={loggedIn} component={Profile} />
           <Route path='/signup'>{loggedIn ? <Redirect to='/' /> : <Register />}</Route>
           <Route path='/signin'>{loggedIn ? <Redirect to='/' /> : <Login />}</Route>
           <Route path='*'>
