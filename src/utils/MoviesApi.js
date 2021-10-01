@@ -13,7 +13,7 @@ function checkResponse(response) {
 export const movies = () => {
   return fetch(`${BASE_URL}/`, {
     headers: {
-      Accept: 'application/json',
+      'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
   }).then(checkResponse);

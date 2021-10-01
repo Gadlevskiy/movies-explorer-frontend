@@ -1,23 +1,34 @@
 import React from 'react';
 
-function MoviesCard({ stateBtnSave, movie, onBtnSave }) {
+function MoviesCard({ stateBtnSave, movie, onBtnSave, onBtnDelete, likedMovies }) {
+  const [isSaved = stateBtnSave ? likedMovies(movie) : false, setIsSaved] = React.useState();
+  
+  
+
   function handleDeleteClick() {
-    onBtnSave(movie.movieId);
+    onBtnDelete(movie.movieId);
+    setIsSaved(false);
   }
 
-  const notAdded = true;
+  function handleSaveClick() {
+    onBtnSave(movie);
+    setIsSaved(true);
+  }
+
   return (
     <div className='card'>
       <div className='card__cover'>
         <img className='card__cover-image' src={movie.image} alt={movie.nameRU} />
         {stateBtnSave ? (
-          notAdded ? (
-            <button className='card__button-add' onClick={handleDeleteClick}>Сохранить</button>
+          isSaved ? (
+            <button className='card__button-added' onClick={handleDeleteClick}></button>
           ) : (
-            <button className='card__button-added'></button>
+            <button className='card__button-add' onClick={handleSaveClick}>
+              Сохранить
+            </button>
           )
         ) : (
-          <button className='card__button-dellete'></button>
+          <button className='card__button-dellete' onClick={handleDeleteClick}></button>
         )}
       </div>
       <div className='card__description'>

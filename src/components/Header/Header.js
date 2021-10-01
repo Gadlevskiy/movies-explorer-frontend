@@ -8,8 +8,12 @@ function Header({ location, onMenuClick }) {
     if (location === '/')
       return (
         <div className='header__registration-block'>
-          <Link className='header__signup-link' to='/signup'>Регистрация</Link>
-          <Link className='header__signin-link' to='/signin'>Войти</Link>
+          <Link className='header__signup-link' to='/signup'>
+            Регистрация
+          </Link>
+          <Link className='header__signin-link' to='/signin'>
+            Войти
+          </Link>
         </div>
       );
     else if (location === '/movies' || '/saved-movies' || '/profile')

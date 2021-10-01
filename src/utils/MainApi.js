@@ -11,7 +11,7 @@ class MainApi {
     return Promise.reject(new Error(`Произошла ошибка со статусом ${res.status}`));
   }
 
-  register({password, email}) {
+  register({password, email, name}) {
     return fetch(`${this._baseUrl}/signup`, {
       method: 'POST',
       credentials: 'include',
@@ -19,7 +19,7 @@ class MainApi {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ password: password, email: email }),
+      body: JSON.stringify({ password: password, email: email, name: name }),
     })
       .then(this._checkResponse)
   }
@@ -46,11 +46,12 @@ class MainApi {
     .then(this._checkResponse)
   }
 
-  editProfile() {
+  editProfile({email, name}) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       credentials: 'include',
       headers: this._headers,
+      body: JSON.stringify({email: email, name: name})
     })
     .then(this._checkResponse)
   }

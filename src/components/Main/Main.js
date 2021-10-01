@@ -4,16 +4,20 @@ import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
+import Header from '../Header/Header';
 
-function Main() {
+function Main({ location, onMenuClick }) {
   return (
-    <main className='mainPage'>
-      <Promo></Promo>
-      <AboutProject></AboutProject>
-      <Techs></Techs>
-      <AboutMe></AboutMe>
-      <Portfolio></Portfolio>
-    </main>
+    <>
+      <Header location={location} onMenuClick={onMenuClick} />
+      <main className='mainPage'>
+        <Promo></Promo>
+        <AboutProject></AboutProject>
+        <Techs></Techs>
+        <AboutMe></AboutMe>
+        <Portfolio></Portfolio>
+      </main>
+    </>
   );
 }
 

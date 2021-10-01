@@ -1,8 +1,7 @@
 import React from 'react';
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Main from '../Main/Main';
-import Header from '../Header/Header';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
@@ -17,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const location = useLocation();
+  const history = useHistory();
   const [isNavigationMenuOpen, setNavigationMenuOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
@@ -40,12 +40,13 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    getSavedMovies();
     getMoviesFromBeat();
     const localSearcResult = JSON.parse(localStorage.getItem('moviesSearchResult'));
     if (localSearcResult) {
       setSearchedMovies(localSearcResult);
     }
-  }, []);
+  }, [location]);
   // Блок логики вывода начальных карточек и подгрузки новых через кнопку "Ещё"
   React.useEffect(() => {
     window.addEventListener('resize', handleResizeWindow);
@@ -84,6 +85,46 @@ function App() {
     const countMovies = Math.min(searchedMovies.length, currentSize + numberOfAdd);
     setShownMovies([...shownMovies, ...searchedMovies.slice(currentSize, countMovies)]);
     setCurrentSize(countMovies);
+  }
+  // Блок логина и регистрации
+  function handleRegisterSubmit(e, data) {
+    e.preventDefault();
+    mainApi
+      .register(data)
+      .then(() => {
+        history.push('/signin');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleLoginSubmit(e, data) {
+    e.preventDefault();
+    mainApi
+      .login(data)
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('token', res.token);
+          setLoggedIn(true);
+          history.push('/movies');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleLogout() {
+    setLoggedIn(false);
+    localStorage.removeItem('token');
+  }
+
+  function handleEditProfile(e, data) {
+    e.preventDefault();
+    mainApi.editProfile(data).then((user)=>{
+      setCurrentUser(user);
+    })
   }
 
   // Блок отвечает за логику открытия "бургер" меню
@@ -159,7 +200,11 @@ function App() {
   }
 
   function handleSavedMoviesButtonSearch(searchValue, isShort) {
-    setSearchedMovies(search(savedMovies, searchValue, isShort));
+    setSavedMovies(search(savedMovies, searchValue, isShort));
+  }
+
+  function checkIsLikedMovie(movie) {
+    return savedMovies.some((el) => el.movieId === movie.movieId);
   }
 
   function handleAddMovie(data) {
@@ -172,7 +217,9 @@ function App() {
     mainApi
       .deleteCard(id)
       .then(() => {
-        setSavedMovies(savedMovies.filter((el) => el.movieId !== id));
+        if (savedMovies) {
+          setSavedMovies(savedMovies.filter((el) => el.movieId !== id));
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -182,33 +229,51 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
-        <Header location={location.pathname} onMenuClick={handleNavigationMenuClick} />
         <Switch>
           <Route path='/' exact>
-            <Main />
+            <Main location={location.pathname} onMenuClick={handleNavigationMenuClick} />
+          </Route>
+          <Route path='/signup'>
+            {loggedIn ? <Redirect to='/movies' /> : <Register onRegister={handleRegisterSubmit} />}
+          </Route>
+          <Route path='/signin'>
+            {loggedIn ? <Redirect to='/movies' /> : <Login onLogin={handleLoginSubmit} />}
           </Route>
           <ProtectedRoute
             path='/movies'
             loggedIn={loggedIn}
             component={Movies}
+            location={location.pathname}
+            onMenuClick={handleNavigationMenuClick}
             isNeedBtnMore={searchedMovies.length > shownMovies.length}
             movies={shownMovies}
+            likedMovies={checkIsLikedMovie}
             onClick={handleMoviesButtonSearch}
             onRenderClick={renderCrads}
             onBtnSave={handleAddMovie}
+            onBtnDelete={handleRemoveMovie}
           />
           <ProtectedRoute
             path='/saved-movies'
             loggedIn={loggedIn}
             component={SavedMovies}
+            location={location.pathname}
+            onMenuClick={handleNavigationMenuClick}
             movies={savedMovies}
             onClick={handleSavedMoviesButtonSearch}
+            onBtnDelete={handleRemoveMovie}
           />
-          <ProtectedRoute path='/profile' loggedIn={loggedIn} component={Profile} />
-          <Route path='/signup'>{loggedIn ? <Redirect to='/' /> : <Register />}</Route>
-          <Route path='/signin'>{loggedIn ? <Redirect to='/' /> : <Login />}</Route>
+          <ProtectedRoute
+            path='/profile'
+            loggedIn={loggedIn}
+            component={Profile}
+            location={location.pathname}
+            onMenuClick={handleNavigationMenuClick}
+            onLogout={handleLogout}
+            onFormSubmit={handleEditProfile}
+          />
           <Route path='*'>
-            <LostPage></LostPage>
+            <LostPage />
           </Route>
         </Switch>
         <Footer></Footer>
