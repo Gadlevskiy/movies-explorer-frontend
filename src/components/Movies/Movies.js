@@ -2,6 +2,7 @@ import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Header from '../Header/Header';
+import Preloader from '../Preloader/Preloader';
 
 function Movies({
   isNeedBtnMore,
@@ -14,12 +15,14 @@ function Movies({
   likedMovies,
   onBtnDelete,
   loggedIn,
+  handlePreloader,
 }) {
   return (
     <>
       <Header location={location} onMenuClick={onMenuClick} loggedIn={loggedIn} />
       <section className='movies'>
         <SearchForm onSearch={onClick} />
+        {handlePreloader ? <Preloader /> : ''}
         <MoviesCardList
           stateBtnSave={true}
           movies={movies}

@@ -26,6 +26,7 @@ function App() {
   const [currentSize, setCurrentSize] = React.useState(7);
   const [numberOfAdd, setNumberOfAdd] = React.useState(2);
   const [shownMovies, setShownMovies] = React.useState([]);
+  const [isPreloaderActive, setIsPreloaderActive] = React.useState(false);
 
   React.useEffect(() => {
     mainApi
@@ -137,6 +138,7 @@ function App() {
   }
   // Блок логики запроса фильмов с сервера и их форматирование
   function getMoviesFromBeat() {
+    setIsPreloaderActive(true);
     moviesApi
       .movies()
       .then((data) => {
@@ -159,10 +161,14 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsPreloaderActive(false);
       });
   }
 
   function getSavedMovies() {
+    setIsPreloaderActive(true);
     mainApi
       .getInitialCards()
       .then((data) => {
@@ -170,6 +176,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsPreloaderActive(false);
       });
   }
   // Блок логики фильтрации массива с фильмами по запросу
@@ -256,6 +265,7 @@ function App() {
             onRenderClick={renderCrads}
             onBtnSave={handleAddMovie}
             onBtnDelete={handleRemoveMovie}
+            handlePreloader={isPreloaderActive}
           />
           <ProtectedRoute
             path='/saved-movies'
@@ -266,6 +276,7 @@ function App() {
             movies={savedMovies}
             onClick={handleSavedMoviesButtonSearch}
             onBtnDelete={handleRemoveMovie}
+            handlePreloader={isPreloaderActive}
           />
           <ProtectedRoute
             path='/profile'
