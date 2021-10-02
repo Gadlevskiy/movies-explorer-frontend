@@ -37,7 +37,10 @@ function SearchForm({ onSearch }) {
             <input
               className='search-form__checkbox'
               checked={isShort}
-              onChange={handleChangeShortValue}
+              onChange={(e) => {
+                handleChangeShortValue(e);
+                onSearch(searchValue, !isShort);
+              }}
               type='checkbox'
             />
             <span className='search-form__checkbox-visible'></span>

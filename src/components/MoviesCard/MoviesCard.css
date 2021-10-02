@@ -10,16 +10,22 @@
   box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
-  max-height: 168px;
-  min-width: 300px;
+  height: 168px;
+  width: 300px;
 }
 
 .card__cover:hover {
   cursor: pointer;
 }
 
+.card__trailer-link {
+  width: 100%;
+  height: 100%;
+}
+
 .card__cover-image {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 6px;
 }
@@ -97,8 +103,8 @@
 
 @media screen and (min-width: 768px) {
   .card__cover {
-    max-height: 190px;
-    min-width: 339px;
+    height: 190px;
+    width: 339px;
   }
 
   .card__description {
@@ -113,8 +119,8 @@
 
 @media screen and (min-width: 1280px) {
   .card__cover {
-    max-height: 201px;
-    min-width: 360px;
+    height: 201px;
+    width: 360px;
   }
 
   .card__description {

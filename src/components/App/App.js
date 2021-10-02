@@ -23,6 +23,7 @@ function App() {
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [searchedMovies, setSearchedMovies] = React.useState([]);
+  const [resultSavedMovies, setResultSavedMovies] = React.useState([]);
   const [currentSize, setCurrentSize] = React.useState(7);
   const [numberOfAdd, setNumberOfAdd] = React.useState(2);
   const [shownMovies, setShownMovies] = React.useState([]);
@@ -47,7 +48,7 @@ function App() {
     if (localSearcResult) {
       setSearchedMovies(localSearcResult);
     }
-  }, [location]);
+  }, []);
   // Блок логики вывода начальных карточек и подгрузки новых через кнопку "Ещё"
   React.useEffect(() => {
     window.addEventListener('resize', handleResizeWindow);
@@ -173,6 +174,7 @@ function App() {
       .getInitialCards()
       .then((data) => {
         setSavedMovies(data);
+        setResultSavedMovies(data);
       })
       .catch((err) => {
         console.log(err);
@@ -209,7 +211,7 @@ function App() {
   }
 
   function handleSavedMoviesButtonSearch(searchValue, isShort) {
-    setSavedMovies(search(savedMovies, searchValue, isShort));
+    setResultSavedMovies(search(savedMovies, searchValue, isShort));
   }
 
   function checkIsLikedMovie(movie) {
@@ -217,17 +219,23 @@ function App() {
   }
 
   function handleAddMovie(data) {
-    mainApi.saveCard(data).catch((err) => {
-      console.log(err);
-    });
+    mainApi
+      .saveCard(data)
+      .then((res) => {
+        setSavedMovies([...savedMovies, res]);
+        setResultSavedMovies([...resultSavedMovies, res])
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleRemoveMovie(id) {
     mainApi
       .deleteCard(id)
       .then(() => {
-        if (savedMovies) {
-          setSavedMovies(savedMovies.filter((el) => el.movieId !== id));
+        if (resultSavedMovies) {
+          setResultSavedMovies(resultSavedMovies.filter((el) => el.movieId !== id));
         }
       })
       .catch((err) => {
@@ -273,7 +281,7 @@ function App() {
             component={SavedMovies}
             location={location.pathname}
             onMenuClick={handleNavigationMenuClick}
-            movies={savedMovies}
+            movies={resultSavedMovies}
             onClick={handleSavedMoviesButtonSearch}
             onBtnDelete={handleRemoveMovie}
             handlePreloader={isPreloaderActive}
