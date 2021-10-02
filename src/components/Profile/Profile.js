@@ -1,28 +1,16 @@
 import React from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import useFormWithValidation from '../../utils/FormValidation';
 
 function Profile({ location, onMenuClick, onLogout, onFormSubmit, loggedIn }) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  React.useEffect(()=>{
-    setEmail(currentUser.email);
-    setName(currentUser.name);
-  }, [currentUser.email, currentUser.name])
-
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
+  const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation({});
 
   function handleSubmit(e) {
-    onFormSubmit(e, {email: email, name: name});
+    onFormSubmit(e, { email: values.email, name: values.name });
+    resetForm();
   }
 
   return (
@@ -32,36 +20,48 @@ function Profile({ location, onMenuClick, onLogout, onFormSubmit, loggedIn }) {
         <h2 className='profile__greetings'>Привет, {currentUser.name}</h2>
         <form className='profile__form'>
           <div className='profile__field'>
-            <h3 className='profile__field-name'>Имя</h3>
+            <label className='profile__field-name'>Имя</label>
             <input
-              className='profile__field-value'
+              className={`profile__field-value ${
+                errors.name ? 'profile__field-value_type_error' : ''
+              }`}
               type='name'
               name='name'
               id='name-input'
-              placeholder='Имя'
+              placeholder={currentUser.name}
               required
-              value={name}
-              onChange={handleChangeName}
+              minLength='3'
+              value={values.name || ''}
+              onChange={handleChange}
             ></input>
           </div>
+          <span className='profile__field-error'>{errors.name}</span>
           <div className='profile__field'>
-            <h3 className='profile__field-name'>E-mail</h3>
+            <label className='profile__field-name'>E-mail</label>
             <input
-              className='profile__field-value'
+              className={`profile__field-value ${
+                errors.email ? 'profile__field-value_type_error' : ''
+              }`}
               type='email'
-              name='Email'
+              name='email'
               id='email-input'
-              placeholder='Email'
+              placeholder={currentUser.email}
               required
-              value={email}
-              onChange={handleChangeEmail}
+              value={values.email || ''}
+              onChange={handleChange}
             ></input>
           </div>
-          <button className='profile__form-submit' type='submit' onClick={handleSubmit}>
+          <span className='profile__field-error'>{errors.email}</span>
+          <button
+            className={`profile__form-submit ${isValid ? '' : 'profile__form-submit_disabled'}`}
+            disabled={!isValid}
+            type='submit'
+            onClick={handleSubmit}
+          >
             Редактировать
           </button>
         </form>
-        <button className='profile__button-exit' onSubmit={onLogout}>
+        <button className='profile__button-exit' onClick={onLogout}>
           Выйти из аккаунта
         </button>
       </section>

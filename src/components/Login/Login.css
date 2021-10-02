@@ -52,12 +52,31 @@
   color: #000000;
 }
 
-.login__field:last-of-type {
+.login__field_type_error {
+  color: #ff4062;
+}
+
+.login__field-error {
+  max-width: 396px;
+  height: 12px;
+  padding-bottom: 10px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.login__field-error:last-of-type {
   margin-bottom: 267px;
 }
 
 .login__form-submit {
   margin-bottom: 15px;
+  border: none;
   background: #000000;
   border-radius: 3px;
   height: 45px;
@@ -68,6 +87,11 @@
   line-height: 15px;
   text-align: center;
   color: #ffffff;
+}
+
+.login__form-submit_disabled {
+  background-color: #f8f8f8;
+  color: #a0a0a0;
 }
 
 .login__register-box {
@@ -117,7 +141,7 @@
     line-height: 17px;
   }
 
-  .login__field:last-of-type {
+  .login__field-error:last-of-type {
     margin-bottom: 180px;
   }
 
