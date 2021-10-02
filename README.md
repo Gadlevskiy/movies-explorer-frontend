@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# Проект доступен на сервере по ссылкам:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Сайт](https://new.imdb.nomoredomains.club/).
+[API](https://api.new.imdb.nomoredomains.club/).
 
 ## Available Scripts
 

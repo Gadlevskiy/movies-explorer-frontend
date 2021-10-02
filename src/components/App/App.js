@@ -48,7 +48,7 @@ function App() {
     if (localSearcResult) {
       setSearchedMovies(localSearcResult);
     }
-  }, []);
+  }, [loggedIn]);
   // Блок логики вывода начальных карточек и подгрузки новых через кнопку "Ещё"
   React.useEffect(() => {
     window.addEventListener('resize', handleResizeWindow);
