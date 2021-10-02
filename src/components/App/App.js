@@ -122,9 +122,9 @@ function App() {
 
   function handleEditProfile(e, data) {
     e.preventDefault();
-    mainApi.editProfile(data).then((user)=>{
+    mainApi.editProfile(data).then((user) => {
       setCurrentUser(user);
-    })
+    });
   }
 
   // Блок отвечает за логику открытия "бургер" меню
@@ -231,7 +231,11 @@ function App() {
       <div className='page'>
         <Switch>
           <Route path='/' exact>
-            <Main location={location.pathname} onMenuClick={handleNavigationMenuClick} />
+            <Main
+              location={location.pathname}
+              onMenuClick={handleNavigationMenuClick}
+              loggedIn={loggedIn}
+            />
           </Route>
           <Route path='/signup'>
             {loggedIn ? <Redirect to='/movies' /> : <Register onRegister={handleRegisterSubmit} />}

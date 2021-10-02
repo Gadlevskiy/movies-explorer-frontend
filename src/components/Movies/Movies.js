@@ -13,10 +13,11 @@ function Movies({
   onMenuClick,
   likedMovies,
   onBtnDelete,
+  loggedIn,
 }) {
   return (
     <>
-      <Header location={location} onMenuClick={onMenuClick} />
+      <Header location={location} onMenuClick={onMenuClick} loggedIn={loggedIn} />
       <section className='movies'>
         <SearchForm onSearch={onClick} />
         <MoviesCardList

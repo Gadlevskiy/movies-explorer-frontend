@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ location, onMenuClick, onLogout, onFormSubmit }) {
+function Profile({ location, onMenuClick, onLogout, onFormSubmit, loggedIn }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(()=>{
@@ -27,7 +27,7 @@ function Profile({ location, onMenuClick, onLogout, onFormSubmit }) {
 
   return (
     <>
-      <Header location={location} onMenuClick={onMenuClick} />
+      <Header location={location} onMenuClick={onMenuClick} loggedIn={loggedIn} />
       <section className='profile'>
         <h2 className='profile__greetings'>Привет, {currentUser.name}</h2>
         <form className='profile__form'>

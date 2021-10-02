@@ -3,9 +3,9 @@ import logo from '../../images/header-logo.svg';
 import accLogo from '../../images/account-icon.svg';
 import { Link } from 'react-router-dom';
 
-function Header({ location, onMenuClick }) {
+function Header({ onMenuClick, loggedIn }) {
   function renderHeader() {
-    if (location === '/')
+    if (!loggedIn)
       return (
         <div className='header__registration-block'>
           <Link className='header__signup-link' to='/signup'>
@@ -16,7 +16,7 @@ function Header({ location, onMenuClick }) {
           </Link>
         </div>
       );
-    else if (location === '/movies' || '/saved-movies' || '/profile')
+    else if (loggedIn)
       return (
         <>
           <button className='header__menu-btn' onClick={onMenuClick}></button>

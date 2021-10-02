@@ -6,10 +6,10 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Header from '../Header/Header';
 
-function Main({ location, onMenuClick }) {
+function Main({ location, onMenuClick, loggedIn }) {
   return (
     <>
-      <Header location={location} onMenuClick={onMenuClick} />
+      <Header location={location} onMenuClick={onMenuClick} loggedIn={loggedIn} />
       <main className='mainPage'>
         <Promo></Promo>
         <AboutProject></AboutProject>
