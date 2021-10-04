@@ -94,8 +94,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-    baseUrl: 'https://api.new.imdb.nomoredomains.club',
-    // baseUrl: 'http://localhost:3100',
+    // baseUrl: 'https://api.new.imdb.nomoredomains.club',
+    baseUrl: 'http://localhost:3100',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('token')}`,
       'Accept': 'application/json',

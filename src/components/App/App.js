@@ -120,6 +120,12 @@ function App() {
   function handleLogout() {
     setLoggedIn(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('moviesSearchResult');
+    setSavedMovies([]);
+    setResultSavedMovies([]);
+    setMovies([]);
+    setSearchedMovies([]);
+    setShownMovies([]);
   }
 
   function handleEditProfile(e, data) {
@@ -223,7 +229,7 @@ function App() {
       .saveCard(data)
       .then((res) => {
         setSavedMovies([...savedMovies, res]);
-        setResultSavedMovies([...resultSavedMovies, res])
+        setResultSavedMovies([...resultSavedMovies, res]);
       })
       .catch((err) => {
         console.log(err);
@@ -236,6 +242,7 @@ function App() {
       .then(() => {
         if (resultSavedMovies) {
           setResultSavedMovies(resultSavedMovies.filter((el) => el.movieId !== id));
+          setSavedMovies(savedMovies.filter((el) => el.movieId !== id));
         }
       })
       .catch((err) => {
