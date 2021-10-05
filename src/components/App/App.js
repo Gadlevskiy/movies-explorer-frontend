@@ -28,6 +28,7 @@ function App() {
   const [numberOfAdd, setNumberOfAdd] = React.useState(2);
   const [shownMovies, setShownMovies] = React.useState([]);
   const [isPreloaderActive, setIsPreloaderActive] = React.useState(false);
+  const [updateInfo, setUpdateInfo] = React.useState('');
 
   React.useEffect(() => {
     mainApi
@@ -147,9 +148,11 @@ function App() {
 
   function handleEditProfile(e, data) {
     e.preventDefault();
-    mainApi.editProfile(data).then((user) => {
-      setCurrentUser(user);
-      history.push('/movies');
+    mainApi.editProfile(data).then(({user, message}) => {
+      if (user) {
+        setCurrentUser(user);
+      }
+      setUpdateInfo(message);
     });
   }
 
@@ -319,6 +322,7 @@ function App() {
             onMenuClick={handleNavigationMenuClick}
             onLogout={handleLogout}
             onFormSubmit={handleEditProfile}
+            updateInfo={updateInfo}
           />
           <Route path='*'>
             <LostPage />

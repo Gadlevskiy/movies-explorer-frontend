@@ -3,7 +3,7 @@ import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import useFormWithValidation from '../../utils/FormValidation';
 
-function Profile({ location, onMenuClick, onLogout, onFormSubmit, loggedIn }) {
+function Profile({ location, onMenuClick, onLogout, onFormSubmit, loggedIn, updateInfo }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation({ name: currentUser.name, email: currentUser.email});
@@ -18,6 +18,7 @@ function Profile({ location, onMenuClick, onLogout, onFormSubmit, loggedIn }) {
       <Header location={location} onMenuClick={onMenuClick} loggedIn={loggedIn} />
       <section className='profile'>
         <h2 className='profile__greetings'>Привет, {currentUser.name}</h2>
+        <div className='profile__server-info'>{updateInfo}</div>
         <form className='profile__form'>
           <div className='profile__field'>
             <label className='profile__field-name'>Имя</label>
