@@ -40,7 +40,6 @@ export default function useFormWithValidation(data) {
         ...errors,
         [name]: target.validationMessage,
       });
-
       setIsValid(target.closest('form').checkValidity());
     }
   };

@@ -6,7 +6,7 @@ import useFormWithValidation from '../../utils/FormValidation';
 function Profile({ location, onMenuClick, onLogout, onFormSubmit, loggedIn }) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation({});
+  const { values, errors, isValid, handleChange, resetForm } = useFormWithValidation({ name: currentUser.name, email: currentUser.email});
 
   function handleSubmit(e) {
     onFormSubmit(e, { email: values.email, name: values.name });
@@ -47,7 +47,7 @@ function Profile({ location, onMenuClick, onLogout, onFormSubmit, loggedIn }) {
               id='email-input'
               placeholder={currentUser.email}
               required
-              value={values.email || ''}
+              value={(values.email) || ''}
               onChange={handleChange}
             ></input>
           </div>

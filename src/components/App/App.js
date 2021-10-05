@@ -149,6 +149,7 @@ function App() {
     e.preventDefault();
     mainApi.editProfile(data).then((user) => {
       setCurrentUser(user);
+      history.push('/movies');
     });
   }
 
