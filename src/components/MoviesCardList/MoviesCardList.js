@@ -1,13 +1,19 @@
 import React from 'react';
-import Card from '../MoviesCard/MoviesCard';
+import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList() {
+function MoviesCardList({ stateBtnSave, movies, onBtnSave, onBtnDelete, likedMovies }) {
   return (
     <section className='movies-card-list'>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+      {movies.map((movie) => (
+        <MoviesCard
+          key={movie.movieId}
+          onBtnDelete={onBtnDelete}
+          stateBtnSave={stateBtnSave}
+          movie={movie}
+          onBtnSave={onBtnSave}
+          likedMovies={likedMovies}
+        />
+      ))}
     </section>
   );
 }

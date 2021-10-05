@@ -6,21 +6,34 @@
 }
 
 .card__cover {
-  padding: 10px;
+  position: relative;
   box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
-  background: center no-repeat url(../../images/card-image.jpg);
-  min-height: 168px;
-  min-width: 300px;
-  background-size: cover;
+  height: 168px;
+  width: 300px;
 }
 
 .card__cover:hover {
   cursor: pointer;
 }
 
+.card__trailer-link {
+  width: 100%;
+  height: 100%;
+}
+
+.card__cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
 .card__button-add {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   border: none;
   border-radius: 30px;
   width: 72px;
@@ -37,6 +50,9 @@
 }
 
 .card__button-added {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   border: none;
   border-radius: 50%;
   background: center no-repeat url(../../images/card-btn-add.svg);
@@ -46,6 +62,9 @@
 }
 
 .card__button-dellete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   border: none;
   border-radius: 50%;
   background: center no-repeat url(../../images/card-btn-dellete.svg);
@@ -84,8 +103,8 @@
 
 @media screen and (min-width: 768px) {
   .card__cover {
-    min-height: 190px;
-    min-width: 339px;
+    height: 190px;
+    width: 339px;
   }
 
   .card__description {
@@ -100,8 +119,8 @@
 
 @media screen and (min-width: 1280px) {
   .card__cover {
-    min-height: 201px;
-    min-width: 360px;
+    height: 201px;
+    width: 360px;
   }
 
   .card__description {
