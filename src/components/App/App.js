@@ -94,7 +94,17 @@ function App() {
     mainApi
       .register(data)
       .then(() => {
-        history.push('/signin');
+        mainApi
+          .login(data)
+          .then((res) => {
+            if (res.token) {
+              setLoggedIn(true);
+              history.push('/movies');
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);

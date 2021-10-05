@@ -46,18 +46,6 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
-  checkToken(JWT) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${JWT}`,
-      },
-    }).then(this._checkResponse);
-  }
-
   checkProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',

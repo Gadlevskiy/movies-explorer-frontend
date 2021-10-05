@@ -15,12 +15,34 @@ export default function useFormWithValidation(data) {
       [name]: value,
     });
 
-    setErrors({
-      ...errors,
-      [name]: target.validationMessage,
-    });
+    if (name === 'email') {
+      if (value === '') {
+        setIsValid(false);
+        setErrors({
+          ...errors,
+          [name]: 'Заполните это поле',
+        });
+      } else if (!value.match(/.+@.+\..+/i)) {
+        setIsValid(false);
+        setErrors({
+          ...errors,
+          [name]: 'Email введен не верно',
+        });
+      } else {
+        setIsValid(true);
+        setErrors({
+          ...errors,
+          [name]: '',
+        });
+      }
+    } else {
+      setErrors({
+        ...errors,
+        [name]: target.validationMessage,
+      });
 
-    setIsValid(target.closest('form').checkValidity());
+      setIsValid(target.closest('form').checkValidity());
+    }
   };
 
   const resetForm = useCallback(
