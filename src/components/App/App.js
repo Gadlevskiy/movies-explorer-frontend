@@ -107,7 +107,6 @@ function App() {
       .login(data)
       .then((res) => {
         if (res.token) {
-          localStorage.setItem('token', res.token);
           setLoggedIn(true);
           history.push('/movies');
         }
@@ -118,14 +117,22 @@ function App() {
   }
 
   function handleLogout() {
-    setLoggedIn(false);
-    localStorage.removeItem('token');
-    localStorage.removeItem('moviesSearchResult');
-    setSavedMovies([]);
-    setResultSavedMovies([]);
-    setMovies([]);
-    setSearchedMovies([]);
-    setShownMovies([]);
+    mainApi
+      .logout()
+      .then(() => {
+        setLoggedIn(false);
+        localStorage.removeItem('moviesSearchResult');
+        setSavedMovies([]);
+        setResultSavedMovies([]);
+        setMovies([]);
+        setSearchedMovies([]);
+        setShownMovies([]);
+        setCurrentUser({});
+        history.push('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleEditProfile(e, data) {
